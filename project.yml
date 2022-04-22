@@ -33,8 +33,14 @@
   :test:
     - +:test/**
     - -:test/support
+  :include:
+    - Core/Inc
+    - Drivers/STM32L1xx_HAL_Driver/Inc
+    - Drivers/CMSIS/Device/ST/STM32L1xx/Include
+    - Drivers/CMSIS/Include
   :source:
-    - src/**
+    # - src/**
+    - Core/Src
   :support:
     - test/support
   :libraries: []
@@ -47,6 +53,7 @@
   :test:
     - *common_defines
     - TEST
+    - STM32L152RE
   :test_preprocess:
     - *common_defines
     - TEST

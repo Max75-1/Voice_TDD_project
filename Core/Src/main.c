@@ -16,13 +16,18 @@
   *
   ******************************************************************************
   */
+#ifndef TEST
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#else
+#include "unity.h"
+#include "mock_main.h"
+#include "TestableMain.h"
+#endif
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -56,7 +61,9 @@ static void MX_USART2_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+#ifdef TEST
+void TestableMain(void)
+#else
 /* USER CODE END 0 */
 
 /**
@@ -64,9 +71,9 @@ static void MX_USART2_UART_Init(void);
   * @retval int
   */
 int main(void)
-{
   /* USER CODE BEGIN 1 */
-
+#endif
+{
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -100,6 +107,7 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
   }
+//#endif
   /* USER CODE END 3 */
 }
 

@@ -8,8 +8,8 @@
   *          is using in the C source code, usually in main.c. This file contains:
   *            - Configuration section that allows to select:
   *              - The STM32L1xx device used in the target application
-  *              - To use or not the peripheral’s drivers in application code(i.e. 
-  *                code will be based on direct access to peripheral’s registers 
+  *              - To use or not the peripheralï¿½s drivers in application code(i.e. 
+  *                code will be based on direct access to peripheralï¿½s registers 
   *                rather than drivers API), this option is controlled by 
   *                "#define USE_HAL_DRIVER"
   *  
@@ -78,7 +78,7 @@
   /* #define STM32L152xCA */   /*!< STM32L152RC-A, STM32L152VC-A, STM32L152QC and STM32L152ZC */
   /* #define STM32L152xD  */   /*!< STM32L152QD, STM32L152RD, STM32L152VD and STM32L152ZD */
   /* #define STM32L152xDX */   /*!< STM32L152VD-X Devices */
-  /* #define STM32L152xE  */   /*!< STM32L152QE, STM32L152RE, STM32L152VE and STM32L152ZE */
+  #define STM32L152xE    /*!< STM32L152QE, STM32L152RE, STM32L152VE and STM32L152ZE */
   /* #define STM32L162xC  */   /*!< STM32L162RC and STM32L162VC */
   /* #define STM32L162xCA */   /*!< STM32L162RC-A, STM32L162VC-A, STM32L162QC and STM32L162ZC */
   /* #define STM32L162xD  */   /*!< STM32L162QD, STM32L162RD, STM32L162VD and STM32L162ZD */

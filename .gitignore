@@ -3,3 +3,10 @@ build/gcov
 build/logs 
 build/temp
 build/test
+
+*.launch
+*.cproject
+*.project
+*.project.prefs
+
+Debug/*
