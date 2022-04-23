@@ -23,6 +23,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "LED.h"
 #else
 #include "unity.h"
 #include "mock_main.h"
@@ -101,10 +102,12 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  LED_Init();
+  LED_On(LED_1);
   while (1)
   {
     /* USER CODE END WHILE */
-
+	  HAL_UART_Transmit(&huart2, "Starting Voice project !!!\r\n", 29, 100);
     /* USER CODE BEGIN 3 */
   }
 //#endif
@@ -205,7 +208,7 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pin = GPIO_PIN_2|GPIO_PIN_3;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_PULLDOWN;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
 }
