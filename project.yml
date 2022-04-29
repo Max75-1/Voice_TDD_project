@@ -12,7 +12,7 @@
   :build_root: build
 #  :release_build: TRUE
   :test_file_prefix: test_
-  :which_ceedling: gem
+  :which_ceedling: vendor/ceedling
   :ceedling_version: 0.30.0
   :default_tasks:
     - test:all
@@ -33,16 +33,17 @@
   :test:
     - +:test/**
     - -:test/support
+  :source:
+    - src/**
+    - Core/Src
+    - Drivers/CMSIS/Device/ST/STM32L1xx/Source
+    - Drivers/STM32L1xx_HAL_Driver/Src
   :include:
     - Core/Inc
-    - Drivers/STM32L1xx_HAL_Driver/Inc
-    - Drivers/CMSIS/Device/ST/STM32L1xx/Include
     - Drivers/CMSIS/Include
-  :source:
-    # - src/**
-    - Core/Src
-    - Drivers/STM32L1xx_HAL_Driver/Src
-    - Drivers/CMSIS/Device/ST/STM32L1xx/Source
+    - Drivers/CMSIS/Device/ST/STM32L1xx/Include
+    - Drivers/STM32L1xx_HAL_Driver/Inc
+    - Drivers/STM32L1xx_HAL_Driver/Inc/Legacy
   :support:
     - test/support
   :libraries: []
@@ -73,6 +74,11 @@
     uint32:   UINT32
     int8:     INT8
     bool:     UINT8
+  :includes:
+    - "stm32l1xx_hal_dma.h"
+    - "stm32l1xx_hal_tim.h"
+    #- "main.h"
+
 
 # Add -gcov to the plugins list to make sure of the gcov plugin
 # You will need to have gcov and gcovr both installed to make it work.
@@ -103,8 +109,9 @@
 
 :plugins:
   :load_paths:
-    - "#{Ceedling.load_path}"
+    - vendor/ceedling/plugins
   :enabled:
     - stdout_pretty_tests_report
     - module_generator
+    - raw_output_report
 ...

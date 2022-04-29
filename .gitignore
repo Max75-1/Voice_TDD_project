@@ -8,5 +8,11 @@ build/test
 *.cproject
 *.project
 *.project.prefs
+*.cmd
 
 Debug/*
+vendor/*
+Middlewares/*
+
+Core/Src/freertos.c
+Core/Inc/FreeRTOSConfig.h
