@@ -77,7 +77,7 @@
   :includes:
     - "stm32l1xx_hal_dma.h"
     - "stm32l1xx_hal_tim.h"
-    #- "main.h"
+ 
 
 
 # Add -gcov to the plugins list to make sure of the gcov plugin
