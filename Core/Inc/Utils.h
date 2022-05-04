@@ -11,7 +11,9 @@
 typedef enum _STATUS_T
 {
 	STATUS_ERROR=-1,
-	STATUS_OK
+	STATUS_OK,
+	STATUS_RESET,
+	STATUS_SET
 } STATUS_T;
 
 #endif /* INC_UTILS_H_ */

@@ -9,6 +9,9 @@ build/test
 *.project
 *.project.prefs
 *.cmd
+*.xml
+*.txt
+*.pdf
 
 Debug/*
 vendor/*

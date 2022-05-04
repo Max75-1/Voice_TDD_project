@@ -55,6 +55,7 @@
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 #ifdef TEST
+int SetStateCount=0;
 TIM_HandleTypeDef htim6;
 TIM_HandleTypeDef htim3;
 #else
@@ -64,7 +65,10 @@ TIM_HandleTypeDef htim3;
 extern TIM_HandleTypeDef htim6;
 extern TIM_HandleTypeDef htim3;
 /* USER CODE BEGIN EV */
+static int SetStateCount=0;
 #endif
+
+GPIO_PinState PrevButtonState=GPIO_PIN_RESET, ButtonState;
 /* USER CODE END EV */
 
 /******************************************************************************/
@@ -187,11 +191,17 @@ STATUS_T TIM6_IRQHandler(void)
 #endif
 {
   /* USER CODE BEGIN TIM6_IRQn 0 */
-static int Timer1=0, PressCount=0;
-
-	GPIO_PinState PrevButtonState=GPIO_PIN_RESET, ButtonState=GPIO_PIN_RESET, LedState=GPIO_PIN_RESET;
-
-
+	ButtonState=HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_13);
+	if(PrevButtonState==GPIO_PIN_RESET){
+		if(ButtonState==GPIO_PIN_SET) SetStateCount++;
+		else SetStateCount=0;
+	}else
+		PrevButtonState=ButtonState;
+	if(SetStateCount>=40){
+		LEDs_Toggle();
+		PrevButtonState=GPIO_PIN_SET;
+		SetStateCount=0;
+	}
 
 	/*//BaseType_t checkIfYieldRequired=pdFALSE;
 
