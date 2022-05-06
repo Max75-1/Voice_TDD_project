@@ -197,8 +197,9 @@ STATUS_T TIM6_IRQHandler(void)
 		else SetStateCount=0;
 	}else
 		PrevButtonState=ButtonState;
-	if(SetStateCount>=40){
-		LEDs_Toggle();
+	if(SetStateCount>=25){
+		LED_ToggleTwoLEDs();
+		//LED_Toggle(LED_1);
 		PrevButtonState=GPIO_PIN_SET;
 		SetStateCount=0;
 	}

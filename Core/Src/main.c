@@ -24,12 +24,18 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "LED.h"
+
 #else
 #include "unity.h"
 #include "mock_main.h"
 #include "TestableMain.h"
 #endif
+
+#include "LED.h"
+#include "LEDTask.h"
+#include "Utils.h"
+
+uint16_t LEDParam = LED_1;
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -55,7 +61,8 @@ UART_HandleTypeDef huart2;
 
 //osThreadId defaultTaskHandle;
 /* USER CODE BEGIN PV */
-
+TaskHandle_t xHandle_LED;
+TaskHandle_t xHandle_LEDToggle;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -142,14 +149,18 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   LED_Init();
-  //LED_On(LED_1);
+
   HAL_TIM_Base_Start_IT(&htim6);
 
-  /*if( xTaskCreate(prvSMSTask, "SMS", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY, &xHandle_SMS) != pdPASS){
-  	  HAL_UART_Transmit(&huart2, "SMSTask creating ERROR !!!\r\n", 30, 100 );
+  if( xTaskCreate(prvLEDTask, "LEDTask", configMINIMAL_STACK_SIZE, (void *)&LEDParam, tskIDLE_PRIORITY, &xHandle_LED) != pdPASS){
+  	  HAL_UART_Transmit(&huart2, "LEDTask creating ERROR !!!\r\n", 30, 100 );
   }
 
-    vTaskStartScheduler();*/
+  if( xTaskCreate(prvLEDToggleTask, "LEDTask", configMINIMAL_STACK_SIZE, (void *)&LEDParam, tskIDLE_PRIORITY, &xHandle_LEDToggle) != pdPASS){
+    	  HAL_UART_Transmit(&huart2, "LEDToggleTask creating ERROR !!!\r\n", 30, 100 );
+    }
+
+    vTaskStartScheduler();
 
   while (1)
   {

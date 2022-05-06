@@ -1,4 +1,5 @@
 #include "LED.h"
+#include "stm32l1xx_hal.h"
 
 STATUS_T LED_On(uint16_t led)
 {
@@ -22,14 +23,35 @@ STATUS_T LED_Init(void)
 	return STATUS_OK;
 }
 
-STATUS_T LEDs_Toggle(){
+STATUS_T LED_Toggle(uint16_t led){
+//int i;
+//for(i=0; i<20; i++){
+	LED_On(led);
+	HAL_Delay(100);
+	LED_Off(led);
+	HAL_Delay(100);
+//}
+
+	return STATUS_OK;
+}
+
+STATUS_T LED_ToggleTwoLEDs(void)
+{
 	if(HAL_GPIO_ReadPin(GPIOC,LED_1)==GPIO_PIN_SET){
 		LED_Off(LED_1);
 		LED_On(LED_2);
 	}else{
-		LED_Off(LED_2);
 		LED_On(LED_1);
+		LED_Off(LED_2);
 	}
 
 	return STATUS_OK;
+}
+
+STATUS_T LED_GetStatus(uint16_t led)
+{
+	if(HAL_GPIO_ReadPin(GPIOC,led)==GPIO_PIN_SET)
+		return STATUS_SET;
+	else
+		return STATUS_RESET;
 }

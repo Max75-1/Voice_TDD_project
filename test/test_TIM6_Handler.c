@@ -50,7 +50,7 @@ void test_TIM6_IRQHandler_should_SetTheSetStateCountToZero_and_SetPrevButtonStat
 {
 	SetStateCount=52;
 	HAL_GPIO_ReadPin_IgnoreAndReturn(GPIO_PIN_SET);
-	LEDs_Toggle_IgnoreAndReturn(STATUS_OK);
+	LED_ToggleTwoLEDs_IgnoreAndReturn(STATUS_OK);
 	HAL_TIM_IRQHandler_Ignore();
 	TIM6_IRQHandler();
 
@@ -62,7 +62,7 @@ void test_TIM6_IRQHandler_should_ToggleLEDs_if_SetStateCountBiggerThan50(void)
 {
 	SetStateCount=52;
 	HAL_GPIO_ReadPin_IgnoreAndReturn(GPIO_PIN_SET);
-	LEDs_Toggle_IgnoreAndReturn(STATUS_OK);
+	LED_ToggleTwoLEDs_IgnoreAndReturn(STATUS_OK);
 	HAL_TIM_IRQHandler_Ignore();
 	TIM6_IRQHandler();
 

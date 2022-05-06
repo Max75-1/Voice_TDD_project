@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include "main.h"
 #include "stm32l1xx_hal_gpio.h"
+#include "stm32l1xx_hal.h"
 #include "Utils.h"
 
 #define LED_1 GPIO_PIN_2
@@ -12,6 +13,8 @@
 STATUS_T LED_Init(void);
 STATUS_T LED_On(uint16_t led);
 STATUS_T LED_Off(uint16_t led);
-STATUS_T LEDs_Toggle();
+STATUS_T LED_Toggle(uint16_t led);
+STATUS_T LED_ToggleTwoLEDs(void);
+STATUS_T LED_GetStatus(uint16_t led);
 
 #endif // LED_H

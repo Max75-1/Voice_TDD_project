@@ -1,6 +1,7 @@
 #include "unity.h"
 #include "mock_main.h"
 #include "mock_stm32l1xx_hal_gpio.h"
+#include "mock_stm32l1xx_hal.h"
 #include "LED.h"
 
 void setUp(void)
@@ -35,7 +36,7 @@ void test_LED_Init_should_SetAllLedsOff(void)
 	TEST_ASSERT_EQUAL_INT(STATUS_OK, LED_Init());
 }
 
-void test_LEDs_Toggle_should_ToggleTheLEDs(void)
+void test_LED_Toggle_should_ToggleTheLED(void)
 {
 	TEST_IGNORE_MESSAGE("Implement this test !");
 
