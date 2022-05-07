@@ -72,6 +72,7 @@
   :enforce_strict_ordering: TRUE
   :plugins:
     - :ignore
+    - :expect_any_args
     - :callback
   :treat_as:
     uint8:    HEX8
@@ -86,6 +87,7 @@
     - "FreeRTOS.h"
     - "FreeRTOSConfig.h"
     - "task.h"
+    - "stm32l1xx_it.h"
  
 
 

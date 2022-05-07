@@ -23,8 +23,12 @@
 #include "stm32l1xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "FreeRTOSConfig.h"
+#include "FreeRTOS.h"
+#include "task.h"
 #include "LED.h"
 #include "Utils.h"
+#include "stm32l1xx_hal_uart.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -58,17 +62,23 @@
 int SetStateCount=0;
 TIM_HandleTypeDef htim6;
 TIM_HandleTypeDef htim3;
+TaskHandle_t xHandle_LED;
+UART_HandleTypeDef huart2;
 #else
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
 extern TIM_HandleTypeDef htim6;
 extern TIM_HandleTypeDef htim3;
+
 /* USER CODE BEGIN EV */
+extern TaskHandle_t xHandle_LED;
 static int SetStateCount=0;
 #endif
 
+
 GPIO_PinState PrevButtonState=GPIO_PIN_RESET, ButtonState;
+BaseType_t checkIfYieldRequired=pdFALSE;
 /* USER CODE END EV */
 
 /******************************************************************************/
@@ -198,7 +208,12 @@ STATUS_T TIM6_IRQHandler(void)
 	}else
 		PrevButtonState=ButtonState;
 	if(SetStateCount>=25){
-		LED_ToggleTwoLEDs();
+		checkIfYieldRequired=xTaskResumeFromISR(xHandle_LED);
+#ifndef TEST
+		portYIELD_FROM_ISR(checkIfYieldRequired);
+#endif
+
+		//LED_ToggleTwoLEDs();
 		//LED_Toggle(LED_1);
 		PrevButtonState=GPIO_PIN_SET;
 		SetStateCount=0;

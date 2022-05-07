@@ -21,28 +21,46 @@ void tearDown(void)
 
 void test_prvLEDTask_should_SuspendItselfInStart(void)
 {
-   vTaskSuspend_Ignore();
+	CallCount=-1;
+	vTaskSuspend_ExpectAnyArgs();
+	vTaskSuspend_ExpectAnyArgs();
+
+	prvLEDTask(&LEDParam);
+
+	TEST_ASSERT_EQUAL_INT(STATUS_OK,ReturnStatus);
 }
 
 void test_prvLEDTask_should_SetLEDOn(void)
 {
 	CallCount=0;
 	vTaskSuspend_Ignore();
-	LED_On_ExpectAndReturn(LEDParam, STATUS_SET);
+	LED_On_ExpectAnyArgsAndReturn(STATUS_SET);
 
-	prvLEDTask((void *)&LEDParam);
+	prvLEDTask(&LEDParam);
 
 	TEST_ASSERT_EQUAL_INT(STATUS_SET, ReturnStatus);
-
 }
 
 void test_prvLEDTask_should_ResumeLEDToggleTask(void)
 {
 	CallCount=1;
 	vTaskSuspend_Ignore();
-	vTaskResume_Ignore();
+	vTaskResume_ExpectAnyArgs();
 
 	prvLEDTask((void *)&LEDParam);
 
 	TEST_ASSERT_EQUAL_INT(STATUS_TOGGLE, ReturnStatus);
+}
+
+void test_prvLEDTask_should_SetLEDOff_and_SuspendToggleTask(void)
+{
+	CallCount=2;
+	vTaskSuspend_Ignore();
+	LED_Off_ExpectAnyArgsAndReturn(STATUS_RESET);
+
+	prvLEDTask(&LEDParam);
+
+	TEST_ASSERT_EQUAL_INT(STATUS_RESET, ReturnStatus);
+	TEST_ASSERT_EQUAL_INT(0, CallCount);
+	TEST_ASSERT_EQUAL_INT(LED_2, LEDParam);
 }

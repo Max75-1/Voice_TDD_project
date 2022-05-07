@@ -36,8 +36,3 @@ void test_LED_Init_should_SetAllLedsOff(void)
 	TEST_ASSERT_EQUAL_INT(STATUS_OK, LED_Init());
 }
 
-void test_LED_Toggle_should_ToggleTheLED(void)
-{
-	TEST_IGNORE_MESSAGE("Implement this test !");
-
-}

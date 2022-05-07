@@ -23,18 +23,6 @@ STATUS_T LED_Init(void)
 	return STATUS_OK;
 }
 
-STATUS_T LED_Toggle(uint16_t led){
-//int i;
-//for(i=0; i<20; i++){
-	LED_On(led);
-	HAL_Delay(100);
-	LED_Off(led);
-	HAL_Delay(100);
-//}
-
-	return STATUS_OK;
-}
-
 STATUS_T LED_ToggleTwoLEDs(void)
 {
 	if(HAL_GPIO_ReadPin(GPIOC,LED_1)==GPIO_PIN_SET){

@@ -58,7 +58,6 @@ TIM_HandleTypeDef htim6;
 
 UART_HandleTypeDef huart2;
 #endif
-
 //osThreadId defaultTaskHandle;
 /* USER CODE BEGIN PV */
 TaskHandle_t xHandle_LED;
@@ -153,14 +152,14 @@ int main(void)
   HAL_TIM_Base_Start_IT(&htim6);
 
   if( xTaskCreate(prvLEDTask, "LEDTask", configMINIMAL_STACK_SIZE, (void *)&LEDParam, tskIDLE_PRIORITY, &xHandle_LED) != pdPASS){
-  	  HAL_UART_Transmit(&huart2, "LEDTask creating ERROR !!!\r\n", 30, 100 );
+  	  HAL_UART_Transmit(&huart2, "LEDTask creating ERROR !!!\r\n", 32, 100 );
   }
 
   if( xTaskCreate(prvLEDToggleTask, "LEDTask", configMINIMAL_STACK_SIZE, (void *)&LEDParam, tskIDLE_PRIORITY, &xHandle_LEDToggle) != pdPASS){
-    	  HAL_UART_Transmit(&huart2, "LEDToggleTask creating ERROR !!!\r\n", 30, 100 );
-    }
+      HAL_UART_Transmit(&huart2, "LEDToggleTask creating ERROR !!!\r\n", 32, 100 );
+  }
 
-    vTaskStartScheduler();
+  vTaskStartScheduler();
 
   while (1)
   {
