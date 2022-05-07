@@ -35,7 +35,6 @@
 #include "LEDTask.h"
 #include "Utils.h"
 
-uint16_t LEDParam = LED_1;
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -151,11 +150,11 @@ int main(void)
 
   HAL_TIM_Base_Start_IT(&htim6);
 
-  if( xTaskCreate(prvLEDTask, "LEDTask", configMINIMAL_STACK_SIZE, (void *)&LEDParam, tskIDLE_PRIORITY, &xHandle_LED) != pdPASS){
+  if( xTaskCreate(prvLEDTask, "LEDTask", configMINIMAL_STACK_SIZE, /*(void *)&LEDParam*/NULL, tskIDLE_PRIORITY, &xHandle_LED) != pdPASS){
   	  HAL_UART_Transmit(&huart2, "LEDTask creating ERROR !!!\r\n", 32, 100 );
   }
 
-  if( xTaskCreate(prvLEDToggleTask, "LEDTask", configMINIMAL_STACK_SIZE, (void *)&LEDParam, tskIDLE_PRIORITY, &xHandle_LEDToggle) != pdPASS){
+  if( xTaskCreate(prvLEDToggleTask, "LEDTask", configMINIMAL_STACK_SIZE, /*(void *)&LEDParam*/NULL, tskIDLE_PRIORITY, &xHandle_LEDToggle) != pdPASS){
       HAL_UART_Transmit(&huart2, "LEDToggleTask creating ERROR !!!\r\n", 32, 100 );
   }
 

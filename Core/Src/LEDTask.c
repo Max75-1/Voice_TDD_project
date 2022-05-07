@@ -17,14 +17,14 @@ int CallCount;
 TaskHandle_t xHandle_LEDToggle=NULL;
 #endif
 
-extern uint16_t LEDParam;
+static uint16_t LEDParam = LED_1;
 STATUS_T ReturnStatus=STATUS_OK;
 
 void prvLEDTask   ( void *pvParameters )
 {
 	vTaskSuspend(NULL);
 
-	LEDParam=*((uint16_t *)pvParameters);
+	//LEDParam=*((uint16_t *)pvParameters);
 
 	while(1){
 		CallCount++;
@@ -55,14 +55,14 @@ void prvLEDTask   ( void *pvParameters )
 
 void prvLEDToggleTask( void *pvParameters )
 {
-uint16_t led=*((uint16_t *)pvParameters);
+//uint16_t led=*((uint16_t *)pvParameters);
 
 	vTaskSuspend(NULL);
 
 	while(1){
-		LED_On(led);
+		LED_On(LEDParam);
 		HAL_Delay(100);
-		LED_Off(led);
+		LED_Off(LEDParam);
 		HAL_Delay(100);
 	}
 
