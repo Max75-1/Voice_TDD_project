@@ -33,6 +33,7 @@
 
 #include "LED.h"
 #include "LEDTask.h"
+#include "VoiceTask.h"
 #include "Utils.h"
 
 /* USER CODE END Includes */
@@ -55,12 +56,17 @@
 #ifndef TEST
 TIM_HandleTypeDef htim6;
 
+UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart2;
 #endif
 //osThreadId defaultTaskHandle;
 /* USER CODE BEGIN PV */
 TaskHandle_t xHandle_LED;
 TaskHandle_t xHandle_LEDToggle;
+TaskHandle_t xHandle_VoiceTask;
+/*TaskHandle_t xHandle_VoiceStopRecord;
+TaskHandle_t xHandle_VoiceStartPlay;
+TaskHandle_t xHandle_VoiceStopPlay;*/
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -68,6 +74,7 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART2_UART_Init(void);
 static void MX_TIM6_Init(void);
+static void MX_USART1_UART_Init(void);
 void StartDefaultTask(void const * argument);
 
 /* USER CODE BEGIN PFP */
@@ -111,6 +118,7 @@ int main(void)
   MX_GPIO_Init();
   MX_USART2_UART_Init();
   MX_TIM6_Init();
+  MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -134,7 +142,7 @@ int main(void)
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
   //osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
-  //defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+ // defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -157,6 +165,22 @@ int main(void)
   if( xTaskCreate(prvLEDToggleTask, "LEDTask", configMINIMAL_STACK_SIZE, /*(void *)&LEDParam*/NULL, tskIDLE_PRIORITY, &xHandle_LEDToggle) != pdPASS){
       HAL_UART_Transmit(&huart2, "LEDToggleTask creating ERROR !!!\r\n", 32, 100 );
   }
+
+  if( xTaskCreate(prvVoiceTask, "VoiceTask", configMINIMAL_STACK_SIZE, /*(void *)&LEDParam*/NULL, tskIDLE_PRIORITY, &xHandle_VoiceTask) != pdPASS){
+        HAL_UART_Transmit(&huart2, "VoiceTask creating ERROR !!!\r\n", 31, 100 );
+  }
+
+  /*if( xTaskCreate(prvVoiceTaskStopRecord, "VoiceTaskStopREcord", configMINIMAL_STACK_SIZE, //(void *)&LEDParamNULL, tskIDLE_PRIORITY, &xHandle_VoiceStopRecord) != pdPASS){
+          HAL_UART_Transmit(&huart2, "VoiceTaskStopRecord creating ERROR !!!\r\n", 42, 100 );
+  }
+
+  if( xTaskCreate(prvVoiceTaskStartPlay, "VoiceTaskStartPlay", configMINIMAL_STACK_SIZE, //(void *)&LEDParamNULL, tskIDLE_PRIORITY, &xHandle_VoiceStartPlay) != pdPASS){
+          HAL_UART_Transmit(&huart2, "VoiceTaskStartRecord creating ERROR !!!\r\n", 42, 100 );
+  }
+
+    if( xTaskCreate(prvVoiceTaskStopRecord, "VoiceTaskStopPlay", configMINIMAL_STACK_SIZE, //(void *)&LEDParamNULL, tskIDLE_PRIORITY, &xHandle_VoiceStopPlay) != pdPASS){
+            HAL_UART_Transmit(&huart2, "VoiceTaskStopRecord creating ERROR !!!\r\n", 42, 100 );
+    }*/
 
   vTaskStartScheduler();
 
@@ -246,6 +270,39 @@ static void MX_TIM6_Init(void)
   /* USER CODE BEGIN TIM6_Init 2 */
 
   /* USER CODE END TIM6_Init 2 */
+
+}
+
+/**
+  * @brief USART1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_USART1_UART_Init(void)
+{
+
+  /* USER CODE BEGIN USART1_Init 0 */
+
+  /* USER CODE END USART1_Init 0 */
+
+  /* USER CODE BEGIN USART1_Init 1 */
+
+  /* USER CODE END USART1_Init 1 */
+  huart1.Instance = USART1;
+  huart1.Init.BaudRate = 9600;
+  huart1.Init.WordLength = UART_WORDLENGTH_8B;
+  huart1.Init.StopBits = UART_STOPBITS_1;
+  huart1.Init.Parity = UART_PARITY_NONE;
+  huart1.Init.Mode = UART_MODE_TX_RX;
+  huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart1.Init.OverSampling = UART_OVERSAMPLING_16;
+  if (HAL_UART_Init(&huart1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN USART1_Init 2 */
+
+  /* USER CODE END USART1_Init 2 */
 
 }
 

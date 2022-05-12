@@ -11,10 +11,12 @@
 #ifndef TEST
 static int CallCount=0;
 extern TaskHandle_t xHandle_LEDToggle;
+extern TaskHandle_t xHandle_VoiceTask;
 extern UART_HandleTypeDef huart2;
 #else
 int CallCount;
 TaskHandle_t xHandle_LEDToggle=NULL;
+TaskHandle_t xHandle_VoiceTask=NULL;
 #endif
 
 static uint16_t LEDParam = LED_1;
@@ -31,10 +33,16 @@ void prvLEDTask   ( void *pvParameters )
 		switch(CallCount){
 			case 1: ReturnStatus=LED_On(LEDParam); break;
 			case 2: vTaskResume(xHandle_LEDToggle);
+					//if(LEDParam==LED_1)
+						vTaskResume(xHandle_VoiceTask);
+					//else
+						//vTaskResume(xHandle_VoiceStartPlay);
+
 					ReturnStatus=STATUS_TOGGLE;
 			break;
 			case 3: vTaskSuspend(xHandle_LEDToggle);
 					ReturnStatus=LED_Off(LEDParam);
+					vTaskResume(xHandle_VoiceTask);
 					CallCount=0;
 					if(LEDParam==LED_1)
 						LEDParam=LED_2;

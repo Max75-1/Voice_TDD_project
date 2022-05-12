@@ -83,6 +83,7 @@
   :includes:
     - "stm32l1xx_hal_dma.h"
     - "stm32l1xx_hal_tim.h"
+    - "stm32l1xx_hal_uart.h"
     - "stm32l1xx_hal.h"
     - "FreeRTOS.h"
     - "FreeRTOSConfig.h"

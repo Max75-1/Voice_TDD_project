@@ -45,7 +45,7 @@ void test_prvLEDTask_should_ResumeLEDToggleTask(void)
 {
 	CallCount=1;
 	vTaskSuspend_Ignore();
-	vTaskResume_ExpectAnyArgs();
+	vTaskResume_Ignore();
 
 	prvLEDTask((void *)&LEDParam);
 
@@ -57,6 +57,7 @@ void test_prvLEDTask_should_SetLEDOff_and_SuspendToggleTask(void)
 	CallCount=2;
 	vTaskSuspend_Ignore();
 	LED_Off_ExpectAnyArgsAndReturn(STATUS_RESET);
+	vTaskResume_Ignore();
 
 	prvLEDTask(&LEDParam);
 

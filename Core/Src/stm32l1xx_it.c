@@ -207,7 +207,7 @@ STATUS_T TIM6_IRQHandler(void)
 		else SetStateCount=0;
 	}else
 		PrevButtonState=ButtonState;
-	if(SetStateCount>=25){
+	if(SetStateCount>=20){
 		checkIfYieldRequired=xTaskResumeFromISR(xHandle_LED);
 #ifndef TEST
 		portYIELD_FROM_ISR(checkIfYieldRequired);
