@@ -43,3 +43,10 @@ STATUS_T LED_GetStatus(uint16_t led)
 	else
 		return STATUS_RESET;
 }
+
+void Power_On(void)
+{
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_RESET);
+	HAL_Delay(100);
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_SET); // Power on of SIM808 shield module ?
+}

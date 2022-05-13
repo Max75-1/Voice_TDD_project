@@ -15,5 +15,6 @@ STATUS_T LED_On(uint16_t led);
 STATUS_T LED_Off(uint16_t led);
 STATUS_T LED_ToggleTwoLEDs(void);
 STATUS_T LED_GetStatus(uint16_t led);
+void Power_On(void);
 
 #endif // LED_H

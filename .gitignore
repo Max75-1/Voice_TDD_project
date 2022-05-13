@@ -12,10 +12,12 @@ build/test
 *.xml
 *.txt
 *.pdf
+*.ioc
 
 Debug/*
 vendor/*
 Middlewares/*
+datasheets/*
 
 Core/Src/freertos.c
 Core/Inc/FreeRTOSConfig.h
